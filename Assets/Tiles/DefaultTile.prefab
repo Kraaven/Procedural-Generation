@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4409865391752113738}
   - component: {fileID: 5137746332606206344}
+  - component: {fileID: 5925041872645041202}
   m_Layer: 0
   m_Name: DefaultTile
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 59de295cc11227548b53fe0b1c5bcd9f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44cefe644cf36934dacdb5c714af4a90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,3 +85,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5925041872645041202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8418543485673929089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f45622763e4dd9418caebc47c8add0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  A: {fileID: 21300000, guid: 59de295cc11227548b53fe0b1c5bcd9f, type: 3}
+  B: {fileID: 21300000, guid: b211a901f7847b44b91356445f9536c4, type: 3}
+  C: {fileID: 21300000, guid: b3f8eb44ca60f12469de4ce14a680ac2, type: 3}
+  D: {fileID: 21300000, guid: 6d5e240d5f4d91247bed7567971b4f04, type: 3}
+  E: {fileID: 21300000, guid: 4fb7e4e4b0c599945993b0dccf612e18, type: 3}
+  F: {fileID: 21300000, guid: e279390c6db1e424bb2df7319eb66a80, type: 3}
+  G: {fileID: 21300000, guid: 14c647870e3ed924f90ee06f78b744cc, type: 3}
+  H: {fileID: 21300000, guid: cc881af8600fbd049ba1bbf2ca53f024, type: 3}
+  I: {fileID: 21300000, guid: 1bf301633bf4a9641afeea03f9859ffd, type: 3}
+  J: {fileID: 21300000, guid: decbdd86b5657254fb008cec54a09749, type: 3}
+  K: {fileID: 21300000, guid: ddecc4b176e46ac4f916563993a6d3e2, type: 3}
+  L: {fileID: 21300000, guid: 3739cb1e07c852245a29907d4d31d4f9, type: 3}
+  M: {fileID: 21300000, guid: f18b8b1f2cada334a88a8234ab85656c, type: 3}
+  N: {fileID: 21300000, guid: e5bed509c11fabc48a15854a5786f00c, type: 3}
+  O: {fileID: 21300000, guid: 9261c7b4bf8efd5439ee189569f6c75f, type: 3}
+  position: {x: 0, y: 0}
