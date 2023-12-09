@@ -24,8 +24,13 @@ public class GenerateBoard : MonoBehaviour
                 tilepositions[i, j].GetComponent<GenerateTile>().position = new Vector2(i, j);
             }
         }
+        for (int i = 0; i < xsize; i++)
+        {
+            for (int j = 0; j < ysize; j++)
+            {
+                tilepositions[i,j].GetComponent<GenerateTile>().collapse();
+            }
+        }
     }
     
-    
-
 }
