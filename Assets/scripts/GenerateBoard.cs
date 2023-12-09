@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GenerateBoard : MonoBehaviour
 {
@@ -22,15 +23,11 @@ public class GenerateBoard : MonoBehaviour
                 tilepositions[i,j] = Instantiate(defaultTile, new Vector2((i*0.64f + transform.position.x),(j*0.64f+transform.position.y)),quaternion.identity);
                 tilepositions[i, j].transform.parent = gameObject.transform;
                 tilepositions[i, j].GetComponent<GenerateTile>().position = new Vector2(i, j);
+                tilepositions[i, j].GetComponent<GenerateTile>().board = gameObject;
             }
         }
-        for (int i = 0; i < xsize; i++)
-        {
-            for (int j = 0; j < ysize; j++)
-            {
-                tilepositions[i,j].GetComponent<GenerateTile>().collapse();
-            }
-        }
+
+        tilepositions[Random.Range(0, xsize), Random.Range(0, ysize)].GetComponent<GenerateTile>().collapse();
     }
     
 }
