@@ -29,6 +29,7 @@ public class GenerateTile : MonoBehaviour
     public GameObject board;
     public bool[] possibleStates;
     public bool closed;
+    public int CT;
 
     public void Awake()
     {
@@ -45,18 +46,22 @@ public class GenerateTile : MonoBehaviour
 
     public void collapse()
     {
-        int selectState = Random.Range(0, 15);
-         setState(selectState);
+        if (closed == false)
+        {
+            int selectState = Random.Range(0, 15);
+            setState(selectState);
 
-         if (possibleStates[selectState] == false)
-         {
-             while (possibleStates[selectState] == false)    
-             {
-                 selectState = Random.Range(0, 15);
-             }
-         }
-         closed = true;
-         setState(selectState);
+            if (possibleStates[selectState] == false)
+            {
+                while (possibleStates[selectState] == false)    
+                {
+                    selectState = Random.Range(0, 15);
+                }
+            }
+            closed = true;
+            setState(selectState);
+        }
+       
 
     }
 
@@ -128,10 +133,12 @@ public class GenerateTile : MonoBehaviour
                 Debug.Log("Not a possible state, ERROR");
                 break;
         }
-        Debug.Log("Collapsed Tile");
-        Debug.Log(socketState.ToString());
         affect();
-        
+        board.GetComponent<GenerateBoard>().count++;
+        //ColN();
+
+
+
     }
 
 
@@ -139,19 +146,18 @@ public class GenerateTile : MonoBehaviour
     {
         if (closed)
         {
-            Debug.Log("Tile ID: "+position.x+" "+position.y+ ", Has filter process");
 
             if (socketState.x == 0 && position.x != 0)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x-1,(int)position.y].GetComponent<GenerateTile>().deleteRIGHT();
             }
 
-            if (socketState.y == 0 && position.x != board.GetComponent<GenerateBoard>().xsize)
+            if (socketState.y == 0 && (int)position.x < board.GetComponent<GenerateBoard>().xsize-1)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x+1,(int)position.y].GetComponent<GenerateTile>().deleteLEFT();
             }
 
-            if (socketState.z == 0 && position.y != board.GetComponent<GenerateBoard>().ysize)
+            if (socketState.z == 0 && (int)position.y < board.GetComponent<GenerateBoard>().ysize-1)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x,(int)position.y+1].GetComponent<GenerateTile>().deleteDOWN();
             }
@@ -171,8 +177,6 @@ public class GenerateTile : MonoBehaviour
         possibleStates[6] = false;
         possibleStates[7] = false;
         possibleStates[11] = false;
-        Debug.Log("Tile ID: "+position.x+" "+position.y+ " Has Has Deleted UP");
-        Debug.Log(possibleStates.ToString());
     }
 
     public void deleteDOWN()
@@ -184,8 +188,6 @@ public class GenerateTile : MonoBehaviour
         possibleStates[8] = false;
         possibleStates[9] = false;
         possibleStates[10] = false;
-        Debug.Log("Tile ID: "+position.x+" "+position.y+ " Has Has Deleted DOWN");
-        Debug.Log(possibleStates.ToString());
     }
 
     public void deleteLEFT()
@@ -197,8 +199,6 @@ public class GenerateTile : MonoBehaviour
         possibleStates[6] = false;
         possibleStates[9] = false;
         possibleStates[13] = false;
-        Debug.Log("Tile ID: "+position.x+" "+position.y+ " Has Has Deleted LEFT");
-        Debug.Log(possibleStates.ToString());
     }
 
     public void deleteRIGHT()
@@ -210,8 +210,64 @@ public class GenerateTile : MonoBehaviour
         possibleStates[7] = false;
         possibleStates[8] = false;
         possibleStates[12] = false;
-        Debug.Log("Tile ID: "+position.x+" "+position.y+ " Has Has Deleted RIGHT");
-        Debug.Log(possibleStates.ToString());
+    }
+
+    public void ColN()
+    {
+        int tempx = Random.Range(0,2);
+        int tempy = Random.Range(0,2);
+        if (tempx == 0) { tempx = tempx - 2; }
+        if (tempy == 0) { tempy = tempy - 2; }
+
+        if (position.x == 0)
+        {
+            tempx = 1;
+        }
+
+        if (position.x == board.GetComponent<GenerateBoard>().xsize)
+        {
+            tempx = -1;
+        }
+
+        if (position.y == 0)
+        {
+            tempy = 1;
+        }
+
+        if (position.y == board.GetComponent<GenerateBoard>().ysize)
+        {
+            tempy = -1;
+        }
+
+        while (board.GetComponent<GenerateBoard>().tilepositions[(int)position.x + tempx, (int)position.y + tempy].GetComponent<GenerateTile>().closed == false)
+        {
+            tempx = Random.Range(0,2);
+            tempy = Random.Range(0,2);
+            if (tempx == 0) { tempx = tempx - 2; }
+            if (tempy == 0) { tempy = tempy - 2; }
+            
+            if (position.x == 0)
+            {
+                tempx = 1;
+            }
+
+            if (position.x == board.GetComponent<GenerateBoard>().xsize)
+            {
+                tempx = -1;
+            }
+
+            if (position.y == 0)
+            {
+                tempy = 1;
+            }
+
+            if (position.y == board.GetComponent<GenerateBoard>().ysize)
+            {
+                tempy = -1;
+            }
+        }
+        
+        board.GetComponent<GenerateBoard>().tilepositions[(int)position.x + tempx, (int)position.y + tempy].GetComponent<GenerateTile>().collapse();
     }
     
     

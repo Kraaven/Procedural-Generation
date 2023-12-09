@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultTile: {fileID: 8418543485673929089, guid: 6b14a506470286b4fa6bc35d2e42c33f, type: 3}
+  collapseThreshold: 9
   xsize: 32
   ysize: 15
 --- !u!4 &2031383881
