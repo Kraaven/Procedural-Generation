@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 44cefe644cf36934dacdb5c714af4a90, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a9bc7429e98a52e45ae8aa91a2bb6042, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -112,4 +112,10 @@ MonoBehaviour:
   M: {fileID: 21300000, guid: f18b8b1f2cada334a88a8234ab85656c, type: 3}
   N: {fileID: 21300000, guid: e5bed509c11fabc48a15854a5786f00c, type: 3}
   O: {fileID: 21300000, guid: 9261c7b4bf8efd5439ee189569f6c75f, type: 3}
+  P: {fileID: 21300000, guid: 7f2952ebe57f08140ae6f541ac79051f, type: 3}
   position: {x: 0, y: 0}
+  socketState: {x: 0, y: 0, z: 0, w: 0}
+  board: {fileID: 0}
+  possibleStates: 
+  closed: 0
+  CT: 0

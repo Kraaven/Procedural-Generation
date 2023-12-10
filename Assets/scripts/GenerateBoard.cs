@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,10 +11,14 @@ public class GenerateBoard : MonoBehaviour
     public int xsize;
     public int ysize;
     public int count;
+    public GameObject UserButton;
+    public bool watch;
+    public float GenerationSpeed;
 
     public GameObject[,] tilepositions;
     // Start is called before the first frame update
-    void Start()
+
+    public void Start()
     {
         tilepositions = new GameObject[xsize, ysize];
         for (int i = 0; i < xsize; i++)
@@ -26,24 +29,31 @@ public class GenerateBoard : MonoBehaviour
                 tilepositions[i, j].transform.parent = gameObject.transform;
                 tilepositions[i, j].GetComponent<GenerateTile>().position = new Vector2(i, j);
                 tilepositions[i, j].GetComponent<GenerateTile>().board = gameObject;
-                tilepositions[i, j].GetComponent<GenerateTile>().CT = collapseThreshold;
             }
         }
+    }
 
+    public void StartGeneration()
+    {
+        
+        UserButton.SetActive(false);
         tilepositions[Random.Range(0, xsize), Random.Range(0, ysize)].GetComponent<GenerateTile>().collapse();
-        StartCoroutine(CollapseTile());
+        GenerationSpeed /= 100; 
+        StartCoroutine(CollapseTile());  
+        
+
     }
 
     IEnumerator CollapseTile()
     {
-        while (count < xsize * ysize)
+        while (count < xsize * ysize *2)
         {
             GameObject tile = tilepositions[Random.Range(0, xsize), Random.Range(0, ysize)];
             tile.GetComponent<GenerateTile>().collapse();
-            Debug.Log("Tile Of position: "+tile.GetComponent<GenerateTile>().position.x + ", "+tile.GetComponent<GenerateTile>().position.y);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(GenerationSpeed);
         }
         
     }
+    
     
 }

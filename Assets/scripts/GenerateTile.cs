@@ -22,6 +22,7 @@ public class GenerateTile : MonoBehaviour
     public Sprite M;
     public Sprite N;
     public Sprite O;
+    public Sprite P;
 
     public Vector2 position;
 
@@ -48,18 +49,38 @@ public class GenerateTile : MonoBehaviour
     {
         if (closed == false)
         {
-            int selectState = Random.Range(0, 15);
-            setState(selectState);
-
-            if (possibleStates[selectState] == false)
+            int none = 0;
+            for (int i = 0; i < 15; i++)
             {
-                while (possibleStates[selectState] == false)    
+                if (possibleStates[i] == false)
                 {
-                    selectState = Random.Range(0, 15);
+                    none++;
                 }
             }
-            closed = true;
-            setState(selectState);
+
+            if (none != 15)
+            {
+                int selectState = Random.Range(0, 15);
+                setState(selectState);
+
+                if (possibleStates[selectState] == false)
+                {
+                    while (possibleStates[selectState] == false)    
+                    {
+                        selectState = Random.Range(0, 15);
+                    }
+                }
+                closed = true;
+                setState(selectState);
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sprite = P;
+                socketState = new Vector4(0, 0, 0, 0);
+                closed = true;
+                board.GetComponent<GenerateBoard>().count++;
+            }
+
         }
        
 
@@ -147,28 +168,99 @@ public class GenerateTile : MonoBehaviour
         if (closed)
         {
 
-            if (socketState.x == 0 && position.x != 0)
+            if ((int)socketState.x == 0 && position.x > 0)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x-1,(int)position.y].GetComponent<GenerateTile>().deleteRIGHT();
             }
+            else if((int)socketState.x == 1 && position.x > 0)
+            {
+                board.GetComponent<GenerateBoard>().tilepositions[(int)position.x-1,(int)position.y].GetComponent<GenerateTile>().openRIGHT();
+            }
 
-            if (socketState.y == 0 && (int)position.x < board.GetComponent<GenerateBoard>().xsize-1)
+            if ((int)socketState.y == 0 && (int)position.x < board.GetComponent<GenerateBoard>().xsize-1)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x+1,(int)position.y].GetComponent<GenerateTile>().deleteLEFT();
             }
+            else if((int)socketState.y == 1 && (int)position.x < board.GetComponent<GenerateBoard>().xsize-1)
+            {
+                board.GetComponent<GenerateBoard>().tilepositions[(int)position.x+1,(int)position.y].GetComponent<GenerateTile>().openLEFT();
+            }
 
-            if (socketState.z == 0 && (int)position.y < board.GetComponent<GenerateBoard>().ysize-1)
+            if ((int)socketState.z == 0 && (int)position.y < board.GetComponent<GenerateBoard>().ysize-1)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x,(int)position.y+1].GetComponent<GenerateTile>().deleteDOWN();
             }
+            else if((int)socketState.z == 1 && (int)position.y < board.GetComponent<GenerateBoard>().ysize-1)
+            {
+                board.GetComponent<GenerateBoard>().tilepositions[(int)position.x,(int)position.y+1].GetComponent<GenerateTile>().openDOWN();
+            }
 
-            if (socketState.w == 0 && position.y != 0)
+            if ((int)socketState.w == 0 && position.y > 0)
             {
                 board.GetComponent<GenerateBoard>().tilepositions[(int)position.x,(int)position.y-1].GetComponent<GenerateTile>().deleteUP();
             }
+            else if((int)socketState.w == 1 && position.y > 0)
+            {
+                board.GetComponent<GenerateBoard>().tilepositions[(int)position.x,(int)position.y-1].GetComponent<GenerateTile>().openUP();
+            }
+            
+            
+            
+            
+            
+            
         }
     }
     public void deleteUP()
+    {
+        possibleStates[1] = false;
+        possibleStates[2] = false;
+        possibleStates[8] = false;
+        possibleStates[9] = false;
+        possibleStates[10] = false;
+        possibleStates[12] = false;
+        possibleStates[13] = false;
+        possibleStates[14] = false;
+        
+    }
+
+    public void deleteDOWN()
+    {
+        possibleStates[1] = false;
+        possibleStates[3] = false;
+        possibleStates[6] = false;
+        possibleStates[7] = false;
+        possibleStates[11] = false;
+        possibleStates[12] = false;
+        possibleStates[13] = false;
+        possibleStates[14] = false;
+    }
+
+    public void deleteLEFT()
+    {
+        possibleStates[0] = false;
+        possibleStates[4] = false;
+        possibleStates[8] = false;
+        possibleStates[7] = false;
+        possibleStates[10] = false;
+        possibleStates[11] = false;
+        possibleStates[12] = false;
+        possibleStates[14] = false;
+    }
+
+    public void deleteRIGHT()
+    {
+        possibleStates[0] = false;
+        possibleStates[5] = false;
+        possibleStates[6] = false;
+        possibleStates[9] = false;
+        possibleStates[10] = false;
+        possibleStates[11] = false;
+        possibleStates[13] = false;
+        possibleStates[14] = false;
+    }
+
+    public void openUP()
     {
         possibleStates[0] = false;
         possibleStates[3] = false;
@@ -178,8 +270,7 @@ public class GenerateTile : MonoBehaviour
         possibleStates[7] = false;
         possibleStates[11] = false;
     }
-
-    public void deleteDOWN()
+    public void openDOWN()
     {
         possibleStates[0] = false;
         possibleStates[2] = false;
@@ -189,8 +280,7 @@ public class GenerateTile : MonoBehaviour
         possibleStates[9] = false;
         possibleStates[10] = false;
     }
-
-    public void deleteLEFT()
+    public void openLEFT()
     {
         possibleStates[1] = false;
         possibleStates[2] = false;
@@ -200,8 +290,7 @@ public class GenerateTile : MonoBehaviour
         possibleStates[9] = false;
         possibleStates[13] = false;
     }
-
-    public void deleteRIGHT()
+    public void openRIGHT()
     {
         possibleStates[1] = false;
         possibleStates[2] = false;
@@ -211,7 +300,7 @@ public class GenerateTile : MonoBehaviour
         possibleStates[8] = false;
         possibleStates[12] = false;
     }
-
+    
     public void ColN()
     {
         int tempx = Random.Range(0,2);
